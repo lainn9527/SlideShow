@@ -1,0 +1,239 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" type="text/css" href="pic-preview.css">
+        <title>Mountain Slide</title>
+    </head>
+    <body>
+        <audio id="player" src="res/lion.mp3" autoplay></audio>
+        <div class="player-div" onclick="nextSong();">換首歌</div>
+        <div class="preview-container" id="prec">
+                <div class="header">
+                        <h1>Album</h1>
+                </div>
+                <div class="cell">
+                        <img src="img/img01.jpg" onclick="toSlide(1);">
+                </div>
+                <div class="cell">
+                        <img src="img/img02.jpg" onclick="toSlide(2);">
+                </div>
+                <div class="cell">
+                        <img src="img/img03.jpg" onclick="toSlide(3);">
+                </div>
+                <div class="cell">
+                        <img src="img/img04.jpg" onclick="toSlide(4);">
+                </div>
+                <div class="cell">
+                        <img src="img/img05.jpg" onclick="toSlide(5);">
+                </div>
+                <div class="cell">
+                        <img src="img/img06.jpg" onclick="toSlide(6);">
+                </div>
+                <div class="cell">
+                        <img src="img/img07.jpg" onclick="toSlide(7);">
+                </div>
+                <div class="cell">
+                        <img src="img/img08.jpg" onclick="toSlide(8);">
+                </div>
+                <div class="cell">
+                        <img src="img/img09.jpg" onclick="toSlide(9);">
+                </div>
+                <div class="cell">
+                        <img src="img/img10.jpg" onclick="toSlide(10);">
+                </div>
+                <div class="cell">
+                        <img src="img/img11.jpg" onclick="toSlide(11);">
+                </div>
+                <div class="cell">
+                        <img src="img/img12.jpg" onclick="toSlide(12);">
+                </div>
+                <div class="cell">
+                        <img src="img/img13.jpg" onclick="toSlide(13);">
+                </div>
+                <div class="cell">
+                        <img src="img/img14.jpg" onclick="toSlide(14);">
+                </div>
+                <div class="cell">
+                        <img src="img/img15.jpg" onclick="toSlide(15);">
+                </div>
+                <div class="cell">
+                        <img src="img/img16.jpg" onclick="toSlide(16);">
+                </div>
+                <div class="cell">
+                        <img src="img/img17.jpg" onclick="toSlide(17);">
+                </div>
+                <div class="cell">
+                        <img src="img/img18.jpg" onclick="toSlide(18);">
+                </div>
+                <div class="cell">
+                        <img src="img/img19.jpg" onclick="toSlide(19);">
+                </div>
+                <div class="cell">
+                        <img src="img/img20.jpg" onclick="toSlide(20);">
+                </div>
+        </div>
+
+        <div class="container" id="presc">
+                <span class="close" onclick="closeSlide();">&times;</span>
+                <a id="downLink" download><span class="downloader" onclick="changeDownloader();">&#8595;</span></a>
+                <a class="prev" onclick="jumpTo(2);">&#10094;</a>
+                <a class="next" onclick="jumpTo(4);">&#10095;</a>
+                <a class="play" id="play" onclick="theShow();">&#9658;</a>
+                <a class="stop" id="stop" onclick="stop();">II</a>
+                <div class="slide">
+                        <img id="image" onclick="closeSlide();">
+                </div>
+                <div class="row">
+                        <div class="cells">
+                                <img class="pre-image" onclick="jumpTo(0);">
+                        </div> 
+                        <div class="cells">
+                                <img class="pre-image" onclick="jumpTo(1);">
+                        </div> 
+                        <div class="cells">
+                                <img class="pre-image" onclick="jumpTo(2);">
+                        </div> 
+                        <div class="cells">
+                                <img class="pre-image" onclick="jumpTo(3);">
+                        </div> 
+                        <div class="cells">
+                                <img class="pre-image" onclick="jumpTo(4);">
+                        </div>
+                        <div class="cells">
+                                <img class="pre-image" onclick="jumpTo(5);">
+                        </div> 
+                        <div class="cells">
+                                <img class="pre-image" onclick="jumpTo(6);">
+                        </div> 
+                        <div class="cells">
+                                <img class="pre-image" onclick="jumpTo(7);">
+                        </div>  
+                </div>
+        
+        </div>
+        
+
+        <script>
+                var pic = document.getElementsByTagName('img');
+                var pre = document.getElementById('prec');                
+                var sli = document.getElementById('presc')
+                var preview=document.getElementsByClassName("pre-image");
+                var stopBut=document.getElementById("stop");
+                var slideIndex, stopper=0;
+
+                function toSlide(id) {
+                        pre.style.display="none";
+                        sli.style.display="block";
+                        display(id);
+                }
+
+                function display(id) {
+                        id=Number(id);
+                        var slide=document.getElementById("image");
+                        var index;
+                        if(id<10) {
+                                index="img/img0"+id+".jpg";
+                        }
+                        else {
+                                index="img/img"+id+".jpg";
+                        }
+                        slide.src=index;
+                        changepre(id);
+                }
+
+
+                function changepre(id) {
+                        var i, start;
+                        start=id-4+20;
+                        for(i=0; i<8; i++) {
+                                var num=start%20+1;
+                                var index;
+                                if(num<10) {
+                                        index="img/img0"+num+".jpg";
+                                }
+                                else {
+                                        index="img/img"+num+".jpg";
+
+                                }
+                                preview[i].src=index;
+                                ++start;
+                        }
+                }
+
+                function closeSlide() {
+                        stop();
+                        pre.style.display="block";
+                        sli.style.display="none";
+                }
+
+                function jumpTo(i) {
+                        var whichOne = preview[i].src;
+                        var inde=whichOne.search('.jpg');
+                        var num=whichOne.substring(inde-2, inde);
+                        display(num)
+                }
+
+                function theShow() {
+                        var slide=document.getElementById("image");
+                        var slideNum=slide.src;
+                        var num=slideNum.search('.jpg');
+                        var inde=slideNum.substring(num-2, num);
+                        slideIndex=Number(inde);
+                        var playBut=document.getElementById("play");
+                        stopBut.style.display="block";
+
+                        if(stopper==1) {
+                                stopper=0;
+                                stopBut.style.display="none";
+                                playBut.style.display="block";
+
+                        }
+                        else if(slideIndex>19) {
+                                stopBut.style.display="none";
+                                playBut.style.display="block";
+                                alert("The album got the end!");
+                        }
+                        else {
+                                var playBut=document.getElementById("play");
+                                playBut.style.display="none";
+                                ++slideIndex;
+                                display(slideIndex);
+                                setTimeout(theShow, 2000);
+                        }
+
+                }
+                function stop() {
+                        stopBut.style.display="none";
+                        stopper=1;
+                }
+                function changeDownloader() {
+                        var link = document.getElementById("downLink");
+                        var slide=document.getElementById("image");
+                        var whichOne = slide.src;
+                        var inde=whichOne.search('.jpg');
+                        var source=whichOne.substring(inde-9, inde+4);
+                        link.href=source;
+                }
+
+                var songindex=1;
+                function nextSong() {
+                        var music = document.getElementById("player");
+                        if(songindex>3) songindex=1;
+                        switch(songindex) {
+                                case 1:
+                                music.src="res/callme.mp3"
+                                break;
+                                case 2:
+                                music.src="res/folk.mp3"
+                                break;
+                                case 3:
+                                music.src="res/lion.mp3"
+                                break;
+                        }
+                        ++songindex;
+                }
+                
+                
+        </script>
+    </body>
+</html>
